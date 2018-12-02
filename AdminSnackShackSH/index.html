@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+		<link rel="apple-touch-icon" href="meta/ios/iTunesArtwork@2x.png">
+    
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+  	<script src="https://unpkg.com/vue"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase-firestore.js"></script>
+		<script src="https://unpkg.com/vue-firestore"></script>
+		<script src="https://unpkg.com/v-data-table/dist/v-data-table.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+		<title>Snack Shack Admin</title>
+    
+
+</head>
+
+	</head>
+  
+
+
+	<body>
+		
+		<div id="app" class="center-screen">
+
+			<h1 class="header">Snack Shack Admin</h1>
+
+			<hr class="hBreak"/>
+			
+			<div id="addItem" style="margin:10px 0 10px 0">
+				<label for="item">Item Name</label>
+				<input name="item" class="form-control" type="text" v-model="item.Item" required>
+				<label for="price">Price</label>
+				<input name="price" class="form-control" type="text" 	v-model="item.Price" required>
+				<label for="quantity">Quantity</label>
+				<input name="quantity" class="form-control" type="text" v-model="item.Quantity" v-on:keyup.enter="add()" required>
+				
+				<br>
+				<input @click="add()" type="submit" value="Add">
+	
+			</div>
+
+			<div id="editItem" style="margin:10px 0 10px 0;display:none">
+
+				<label for="eitem">Item Name</label>
+				<input name="eitem" class="form-control" type="text" v-model="item.Item" v-on:keyup.enter="update()">
+				<label for="eprice">Price</label>
+				<input name="eprice" class="form-control" type="text" 	v-model="item.Price" v-on:keyup.enter="update()">
+				<label for="equantity">Quantity</label>
+				<input name="equantity" class="form-control" type="text" v-model="item.Quantity" v-on:keyup.enter="update()">
+				
+				<br>
+				<input @click="update()" type="submit" value="Edit">
+	
+			</div>
+
+			<form id="search">
+				<label for="query">Search</label>
+				<input name="query" class="form-control" type="text" v-model="searchQuery">
+			</form>
+
+			<data-table style="width:100%" :data="items" :columns-to-display="gridColumns" :filter-key="searchQuery" :child-hideable="true" :child-init-hide="true" :columns-to-not-sort="['Action']" >
+				<template slot="Action" scope="props">
+
+					<button @click="edit(props.entry)">
+					<img src="images/edit.png" />
+					</button>
+				
+					<button @click="remove(props.entry)">
+					<img src="images/delete.png" />
+					</button>
+				
+				</template>
+			
+			</data-table>
+		
+		</div>
+		
+
+    <script src="script.js"></script>
+ 
+  </body>
+
+
+</html>
